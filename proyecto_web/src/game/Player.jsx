@@ -58,7 +58,7 @@ function Player() {
       setPlayerCreated(true);
       setError(null);
     } catch (error) {
-      console.error('Error al añadir el jugador:', error);
+      console.error('Errrror al añadir el jugador:', error);
       setError(error.response.data)
     }
   };
