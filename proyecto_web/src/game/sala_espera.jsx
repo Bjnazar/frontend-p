@@ -13,7 +13,7 @@ function Sala_espera() {
   // useEffect(() => {
   //   const fetchPlayers = async () => {
   //     try {
-  //       const response = await axios.get(`http://localhost:3000/games/showplayers/${gameId}`);
+  //       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/showplayers/${gameId}`);
   //       setPlayers(response.data);
   //     } catch (error) {
   //       console.error('Error al obtener los jugadores:', error);
@@ -26,7 +26,7 @@ function Sala_espera() {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/games/showplayers/${gameId}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/showplayers/${gameId}`);
         setPlayers(response.data);
       } catch (error) {
         console.error('Error al obtener los jugadores:', error);
@@ -50,7 +50,7 @@ function Sala_espera() {
 
     try {
 
-      const gameStatusResponse = await axios.get(`http://localhost:3000/games/findgame/${gameId}`);
+      const gameStatusResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/findgame/${gameId}`);
       const gameStarted = gameStatusResponse.data.started;
 
       if (gameStarted) {
@@ -60,27 +60,27 @@ function Sala_espera() {
       }
 
       // Requests para partir el juego (solo se debe accionar una vez)
-      const response1 = await axios.patch(`http://localhost:3000/games/startgame/${gameId}`);
+      const response1 = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/games/startgame/${gameId}`);
       console.log('Respuesta del servidor 1:', response1.data);
       // Este endpoint cambiará el estado de started a true
 
-      const response2 = await axios.post(`http://localhost:3000/games/addboard`, gameData);
+      const response2 = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/games/addboard`, gameData);
       console.log('Respuesta del servidor 2:', response2.data);
 
-      const response22 = await axios.get(`http://localhost:3000/games/findboardbygameid/${gameId}`);
+      const response22 = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/findboardbygameid/${gameId}`);
       console.log('Respuesta del servidor 22:', response22.data);
       const tableroData = response22.data;
       setTablero(tableroData);
 
       console.log("id tablero:", tableroData.id);
 
-      const response3 = await axios.post(`http://localhost:3000/properties/create/${tableroData.id}`);
+      const response3 = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/properties/create/${tableroData.id}`);
       console.log('Respuesta del servidor 3:', response3.data);
 
-      const response4 = await axios.post(`http://localhost:3000/metros/create/${tableroData.id}`);
+      const response4 = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/metros/create/${tableroData.id}`);
       console.log('Respuesta del servidor 4:', response4.data);
 
-      const response5 = await axios.post(`http://localhost:3000/cards/create/${tableroData.id}`);
+      const response5 = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/cards/create/${tableroData.id}`);
       console.log('Respuesta del servidor 5:', response5.data);
 
       // Redireccionar a la ruta /tablero después de inicializar el juego

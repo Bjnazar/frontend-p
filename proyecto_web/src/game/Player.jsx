@@ -41,7 +41,7 @@ function Player() {
       // Crear partida si es necesario
       let game_id = idPartida;
       if (createGame) {
-        const gameResponse = await axios.post('http://localhost:3000/games/newgame', {});
+        const gameResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/games/newgame`, {});
         game_id = gameResponse.data.id;
         setIdPartida(game_id); // Actualizar el ID de la partida con el nuevo ID
       }
@@ -53,7 +53,7 @@ function Player() {
         character_id: character_id,
       };
 
-      const response = await axios.post(`http://localhost:3000/games/addplayer`, playerData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/games/addplayer`, playerData);
       console.log('Respuesta del servidor:', response.data);
       setPlayerCreated(true);
       setError(null);

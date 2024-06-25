@@ -30,9 +30,9 @@ function Tablero() {
   useEffect(() => {
     const fetchGameData = async () => {
       try {
-        const gameResponse = await axios.get(`http://localhost:3000/games/findgame/${gameId}`);
-        const playersResponse = await axios.get(`http://localhost:3000/games/showplayers/${gameId}`);
-        const boardResponse = await axios.get(`http://localhost:3000/games/findboardbygameid/${gameId}`);
+        const gameResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/findgame/${gameId}`);
+        const playersResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/showplayers/${gameId}`);
+        const boardResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/findboardbygameid/${gameId}`);
 
         setGameData(gameResponse.data);
         setPlayers(playersResponse.data);
@@ -86,7 +86,7 @@ useEffect(() => {
 
   const fetchPlayers = async () => {
     try {
-      const playersResponse = await axios.get(`http://localhost:3000/games/showplayers/${gameId}`);
+      const playersResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/showplayers/${gameId}`);
       setPlayers(playersResponse.data);
     } catch (err) {
       setError(err);
@@ -95,7 +95,7 @@ useEffect(() => {
 
   const fetchTurno = async () => {
     try {
-      const gameResponse = await axios.get(`http://localhost:3000/games/findgame/${gameId}`);
+      const gameResponse = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/findgame/${gameId}`);
       setGameData(gameResponse.data);
     } catch (err) {
       setError(err);
@@ -119,22 +119,22 @@ useEffect(() => {
     
 
     try {
-      const response1 = await axios.patch(`http://localhost:3000/games/updateplayerposition/${gameId}`, gameData);
+      const response1 = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/games/updateplayerposition/${gameId}`, gameData);
       console.log('Respuesta del servidor 1:', response1.data);
       setInfo_propiedad(response1.data)
 
-      const response2 = await axios.get(`http://localhost:3000/games/getpropertytype/${gameId}`);
+      const response2 = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/getpropertytype/${gameId}`);
       console.log('Respuesta del servidor 2:', response2.data);
       const property = response2.data
       setProperty(response2.data);
       setInfo_carta();
       setInfo_carta2();
       if (property === 'interrogacion'){
-        const response5 = await axios.get(`http://localhost:3000/cards/interrogaciones`);
+        const response5 = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/cards/interrogaciones`);
         console.log('Respuesta del servidor 5:', response5.data);
         setInfo_carta(response5.data)
     
-        const response6 = await axios.patch(`http://localhost:3000/games/receivecard/${gameId}`,response5.data);
+        const response6 = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/games/receivecard/${gameId}`,response5.data);
         console.log('Respuesta del servidor 6:', response6.data);
         setInfo_carta2(response6.data)
 
@@ -145,7 +145,7 @@ useEffect(() => {
       console.log("entrando al get")
       console.log(currentPlayer)
   
-      const response8 = await axios.get(`http://localhost:3000/games/getproperty_info_total/${gameId}`);
+      const response8 = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/games/getproperty_info_total/${gameId}`);
       console.log("respuesta servidor 8:", response8.data);
       setProperty_info(response8.data)
       }
@@ -163,13 +163,13 @@ useEffect(() => {
 
     try {
       if (property === 'propiedad') {
-      const response2 = await axios.patch(`http://localhost:3000/games/updateplayerproperty/${gameId}`);
+      const response2 = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/games/updateplayerproperty/${gameId}`);
       console.log('Respuesta del servidor 2:', response2.data);
       setInfo(response2.data);
     }
 
       else {
-        const response2 = await axios.patch(`http://localhost:3000/games/updateplayermetro/${gameId}`);
+        const response2 = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/games/updateplayermetro/${gameId}`);
         console.log('Respuesta del servidor 2:', response2.data);
         setInfo(response2.data);
       }
@@ -193,7 +193,7 @@ useEffect(() => {
     setProperty_info();
 
     try {
-      const response3 = await axios.patch(`http://localhost:3000/games/updateactualplayer/${gameId}`);
+      const response3 = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/games/updateactualplayer/${gameId}`);
       console.log('Respuesta del servidor 3:', response3.data);
 
       fetchTurno();
@@ -207,7 +207,7 @@ useEffect(() => {
     e.preventDefault();
 
     try {
-      const response3 = await axios.patch(`http://localhost:3000/games/buybuilding/${gameId}`);
+      const response3 = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/games/buybuilding/${gameId}`);
       console.log('Respuesta del servidor 3:', response3.data);
       setInfo_construccion(response3.data);
 
